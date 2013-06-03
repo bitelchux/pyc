@@ -29,101 +29,102 @@ overflow-y:hidden;
 }
 </style>
 <script>
-var deviceHeading, deviceName, deviceVersion;
+  var deviceHeading, deviceName, deviceVersion;
 
-document.addEventListener("deviceready", onDeviceReady, false);
-function alertDismissed() {
-        // do something
-}
-function showAlert(txt) {
-        navigator.notification.alert(
-            txt,  // message
-            alertDismissed,         // callback
-            'Info',            // title
-            'Ok'                  // buttonName
-        );
-}
-function onDeviceReady() {
-	showAlert("cargado");
-	if (checkConnection()){
-		onOnline();
-	}else{
-		onOffline();
-        }
-}
+  document.addEventListener("deviceready", onDeviceReady, false);
+  function alertDismissed() {
+  // do something
+  }
+  function showAlert(txt) {
+  navigator.notification.alert(
+  txt,  // message
+  alertDismissed,         // callback
+  'Info',            // title
+  'Ok'                  // buttonName
+  );
+  }
+  function onDeviceReady() {
+  document.addEventListener("online", onOnline, false);
+  document.addEventListener("offline", onOffline, false);
+  document.addEventListener("backbutton",backPress,false);
+  showAlert("cargado");
+  if (checkConnection()){
+  onOnline();
+  }else{
+  onOffline();
+  }
+  }
 
-$(document).ready(function () {
+  $(document).ready(function () {
 
-    resize();
-  
-});
+  resize();
 
-function resize(){
+  });
+
+  function resize(){
 
 
-	screenw=$(window).width()-2;
-	screenh=$(window).height()-2;
-	$('#iframe').css({height:screenh})
-	$('#iframe').css({width:screenw} )
+  screenw=$(window).width()-2;
+  screenh=$(window).height()-2;
+  $('#iframe').css({height:screenh})
+  $('#iframe').css({width:screenw} )
 
-}
-document.addEventListener("online", onOnline, false);
-document.addEventListener("offline", onOffline, false);
-function onOnline(){
-$("#iframe").show();
-$("#nocon").hide();
-}
-function onOffline(){
-$("#iframe").hide();
-$("#nocon").show();
+  }
+  function onOnline(){
+  $("#iframe").show();
+  $("#nocon").hide();
+  }
+  function onOffline(){
+  $("#iframe").hide();
+  $("#nocon").show();
 
-}
-function checkConnection() {
-    var networkState = navigator.network.connection.type;
+  }
+  function checkConnection() {
+  var networkState = navigator.network.connection.type;
 
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.NONE]     = 'No network connection';
+  var states = {};
+  states[Connection.UNKNOWN]  = 'Unknown connection';
+  states[Connection.ETHERNET] = 'Ethernet connection';
+  states[Connection.WIFI]     = 'WiFi connection';
+  states[Connection.CELL_2G]  = 'Cell 2G connection';
+  states[Connection.CELL_3G]  = 'Cell 3G connection';
+  states[Connection.CELL_4G]  = 'Cell 4G connection';
+  states[Connection.NONE]     = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
-if (networkState==Connection.NONE){
-return false;
-}
-return true;
-}
+  alert('Connection type: ' + states[networkState]);
+  if (networkState==Connection.NONE){
+  return false;
+  }
+  return true;
+  }
 
-document.addEventListener("backbutton", function(e){
-        e.preventDefault();
-	showConfirm();
-}, false);
-// process the confirmation dialog result
+function backPress(){
+  e.preventDefault();
+  showConfirm();
+}  
+  // process the confirmation dialog result
 
-function onConfirm(buttonIndex) {
-    alert('You selected button ' + buttonIndex);
-        navigator.app.exitApp();
-}
+  function onConfirm(buttonIndex) {
+  alert('You selected button ' + buttonIndex);
+  navigator.app.exitApp();
+  }
 
-// Show a custom confirmation dialog
-//
-function showConfirm() {
-    navigator.notification.confirm(
-        'You are the winner!',  // message
-        onConfirm,              // callback to invoke with index of button pressed
-        'Game Over',            // title
-        'Restart,Exit'          // buttonLabels
-    );
-}
+  // Show a custom confirmation dialog
+  //
+  function showConfirm() {
+  navigator.notification.confirm(
+  'You are the winner!',  // message
+  onConfirm,              // callback to invoke with index of button pressed
+  'Game Over',            // title
+  'Restart,Exit'          // buttonLabels
+  );
+  }
 </script>
 </head>
 	<body>
-		<div id="container" style="display:none">
+		<div id="container" >
 
-                    <iframe scrolling="no" id="iframe" src="http://google.es" frameBorder="0"></iframe>
+                    <iframe style="display:none" scrolling="no" id="iframe" src="http://google.es" frameBorder="0"></iframe>
 
 	        </div>
 <div id="nocon" style="display:none">
