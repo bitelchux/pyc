@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title>PhoneGap Build Sample</title>
+		<script type="text/javascript" src="phonegap.js"></script>
+		<script type="text/javascript" src="jq.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+<style>
+         html, body {margin:0; padding:0; height:90%}
+         #container {height:100%; width: 100%; min-height:100%;}
+         #iframe {height: 90%; width: 90%; display: block}
+*{
+-moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+ 
+      -o-user-select: none;
+      user-select: none;
+}
+body{
+background-color:red;
+}
+iframe{
+overflow-x:hidden;
+overflow-y:hidden;
+}
+</style>
+<script>
+var deviceHeading, deviceName, deviceVersion;
+
+document.addEventListener("deviceready", onDeviceReady, false);
+function alertDismissed() {
+        // do something
+}
+function showAlert(txt) {
+        navigator.notification.alert(
+            txt,  // message
+            alertDismissed,         // callback
+            'Info',            // title
+            'Ok'                  // buttonName
+        );
+}
+function onDeviceReady() {
+	showAlert("cargado");
+	if (checkConnection()){
+		onOnline();
+	}else{
+		onOffline();
+        }
+}
+
+$(document).ready(function () {
+
+    resize();
+  
+});
+
+function resize(){
+
+
+	screenw=$(window).width()-2;
+	screenh=$(window).height()-2;
+	$('#iframe').css({height:screenh})
+	$('#iframe').css({width:screenw} )
+
+}
+document.addEventListener("online", onOnline, false);
+document.addEventListener("offline", onOffline, false);
+function onOnline(){
+$("#iframe").show();
+$("#nocon").hide();
+}
+function onOffline(){
+$("#iframe").hide();
+$("#nocon").show();
+
+}
+function checkConnection() {
+    var networkState = navigator.network.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    alert('Connection type: ' + states[networkState]);
+if (networkState==Connection.NONE){
+return false;
+}
+return true;
+}
+
+document.addEventListener("backbutton", function(e){
+        e.preventDefault();
+	showConfirm();
+}, false);
+// process the confirmation dialog result
+
+function onConfirm(buttonIndex) {
+    alert('You selected button ' + buttonIndex);
+        navigator.app.exitApp();
+}
+
+// Show a custom confirmation dialog
+//
+function showConfirm() {
+    navigator.notification.confirm(
+        'You are the winner!',  // message
+        onConfirm,              // callback to invoke with index of button pressed
+        'Game Over',            // title
+        'Restart,Exit'          // buttonLabels
+    );
+}
+</script>
+</head>
+	<body>
+		<div id="container" style="display:none">
+
+                    <iframe scrolling="no" id="iframe" src="http://google.es" frameBorder="0"></iframe>
+
+	        </div>
+<div id="nocon" style="display:none">
+<h2>This app requires an internet connection</h2>
+<h2>Active your internet connection and start the app again</h2>
+<h2>Or<br/><a href=''>EXIT</a></h2>
+</div>
+	</body>
+</html>
