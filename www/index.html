@@ -21,7 +21,7 @@
       user-select: none;
 }
 body{
-background-color:red;
+background-color:white;
 }
 iframe{
 overflow-x:hidden;
@@ -54,13 +54,25 @@ overflow-y:hidden;
   onOffline();
   }
   }
+  function checkFrame() {
+  var iframe = document.getElementById("iframe");
+  alert(iframe.document)
 
+
+  if(iframe == null) alert('Frame not found');
+  else {
+  if(iframe.document == null)
+  iframe.style.display="none";
+  }
+  }
   $(document).ready(function () {
-
   resize();
+  
 
   });
-
+  $(window).resize(function() {
+  resize();
+  });
   function resize(){
 
 
@@ -79,29 +91,11 @@ overflow-y:hidden;
   $("#nocon").show();
 
   }
-  function checkConnection() {
-  var networkState = navigator.network.connection.type;
-
-  var states = {};
-  states[Connection.UNKNOWN]  = 'Unknown connection';
-  states[Connection.ETHERNET] = 'Ethernet connection';
-  states[Connection.WIFI]     = 'WiFi connection';
-  states[Connection.CELL_2G]  = 'Cell 2G connection';
-  states[Connection.CELL_3G]  = 'Cell 3G connection';
-  states[Connection.CELL_4G]  = 'Cell 4G connection';
-  states[Connection.NONE]     = 'No network connection';
-
-  alert('Connection type: ' + states[networkState]);
-  if (networkState==Connection.NONE){
-  return false;
-  }
-  return true;
-  }
-
-function backPress(){
   
+  function backPress(){
+
   showConfirm();
-}  
+  }
   // process the confirmation dialog result
 
   function onConfirm(buttonIndex) {
@@ -112,27 +106,30 @@ function backPress(){
   // Show a custom confirmation dialog
   //
   function showConfirm() {
-alert("nota");
+
   navigator.notification.confirm(
-  'You are the winner!',  // message
+  'Salir de la aplicación',  // message
   onConfirm,              // callback to invoke with index of button pressed
-  'Game Over',            // title
-  'Restart,Exit'          // buttonLabels
+  'Estas seguro?',            // title
+  'Si,No'          // buttonLabels
   );
   }
 </script>
 </head>
 	<body>
     <div id="nocon" style="display:none">
+      <!--
       <h2>This app requires an internet connection</h2>
       <h2>Active your internet connection and start the app again</h2>
       <h2>
         Or<br/><a href=''>EXIT</a>
       </h2>
+      -->
+      <h2>Esta aplicación requiere una conexión de datos</h2>
     </div>
 		<div id="container" >
 
-                    <iframe style="display:block" scrolling="no" id="iframe" src="http://delasource.info" frameBorder="0"></iframe>
+                    <iframe style="display:block" scrolling="no" id="iframe" src="http://mob.promocionesycolecciones.com" onload="this.style.display='block'" frameBorder="0"></iframe>
 
 	        </div>
 
