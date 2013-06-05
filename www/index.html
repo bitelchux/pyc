@@ -72,15 +72,9 @@
             }
         }
 
-        $(document).ready(function () {
-            alert(document.referrer);
-            if (document.referrer == "") {
-
-                var t = setTimeout(function () { document.location.href = 'http://mob.promocionesycolecciones.com' }, 3000)
-            }
+        $(document).ready(function () {                       
+            var t = setTimeout(function () { document.location.href = 'http://mob.promocionesycolecciones.com' }, 1000)            
             resize();
-
-
         });
         $(window).resize(function () {
             resize();
