@@ -1,111 +1,142 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="utf-8">
-	<title>PhoneGap Build Sample</title>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="jq.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-		<meta name="apple-mobile-web-app-capable" content="yes"/>
-<style>
-         html, body {margin:0; padding:0; height:90%}
-         #container {height:100%; width: 100%; min-height:100%;}
-         #iframe {height: 90%; width: 90%; display: block}
-*{
--moz-user-select: -moz-none;
-      -khtml-user-select: none;
-      -webkit-user-select: none;
- 
-      -o-user-select: none;
-      user-select: none;
-}
-body{
-background-color:white;
-}
-iframe{
-overflow-x:hidden;
-overflow-y:hidden;
-}
-</style>
-<script>
-  var deviceHeading, deviceName, deviceVersion;
+<head>
+    <meta charset="utf-8">
+    <title>PhoneGap Build Sample</title>
+    <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="jq.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <style>
+        html, body
+        {
+            margin: 0;
+            padding: 0;
+            height: 90%;
+        }
+        #container
+        {
+            height: 100%;
+            width: 100%;
+            min-height: 100%;
+        }
+        #iframe
+        {
+            height: 90%;
+            width: 90%;
+            display: block;
+        }
+        *
+        {
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        body
+        {
+            background-color: white;
+        }
+        iframe
+        {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+    </style>
+    <script>
+        var deviceHeading, deviceName, deviceVersion;
 
-  document.addEventListener("deviceready", onDeviceReady, false);
-  function alertDismissed() {
-  // do something
-  }
-  function showAlert(txt) {
-  navigator.notification.alert(
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function alertDismissed() {
+            // do something
+        }
+        function showAlert(txt) {
+            navigator.notification.alert(
   txt,  // message
   alertDismissed,         // callback
   'Info',            // title
   'Ok'                  // buttonName
   );
-  }
-  function onDeviceReady() {
-  	document.addEventListener("online", onOnline, false);
-	  document.addEventListener("offline", onOffline, false);
-	  document.addEventListener("backbutton",backPress,false);
-  
-  if (checkConnection()){
-  onOnline();
-  }else{
-  onOffline();
-  }
-  }
-  
-  $(document).ready(function () {
-  resize();
-  
+        }
+        function onDeviceReady() {
+            document.addEventListener("online", onOnline, false);
+            document.addEventListener("offline", onOffline, false);
+            document.addEventListener("backbutton", backPress, false);
 
-  });
-  $(window).resize(function() {
-  resize();
-  });
-  function resize(){
+            if (checkConnection()) {
+                onOnline();
+            } else {
+                onOffline();
+            }
+        }
+
+        $(document).ready(function () {
+            alert(document.referrer);
+            if (document.referrer == "") {
+
+                var t = setTimeout(function () { document.location.href = 'http://mob.promocionesycolecciones.com' }, 3000)
+            }
+            resize();
 
 
-  screenw=$(window).width()-2;
-  screenh=$(window).height()-2;
-  $('#iframe').css({height:screenh})
-  $('#iframe').css({width:screenw} )
+        });
+        $(window).resize(function () {
+            resize();
+        });
+        function resize() {
 
-  }
-  function onOnline(){
-	document.location.href='http://mob.promocionesycolecciones.com'
-  }
-  function onOffline(){
 
-	showAlert("esta aplicación requiere una conexión de datos para funcionar, activela y vuelva a ejecutar la aplicación");
-	navigator.app.exitApp();
-  }
-  
-  function backPress(){
+            screenw = $(window).width() - 2;
+            screenh = $(window).height() - 2;
+            $('#iframe').css({ height: screenh })
+            $('#iframe').css({ width: screenw })
+            if (screenw < screenh) {
+                $("#splash").css({ width: screenw-60})
+                $("#splash").css({ height: screenw-60})
+            } else {
+                $("#splash").css({ height: screenh-60 })
+                $("#splash").css({ width: screenh-60 })
+            }
 
-  showConfirm();
-  }
-  // process the confirmation dialog result
+        }
+        function onOnline() {
+            document.location.href = 'http://mob.promocionesycolecciones.com'
+        }
+        function onOffline() {
 
-  function onConfirm(buttonIndex) {
-  alert('You selected button ' + buttonIndex);
-  navigator.app.exitApp();
-  }
+            showAlert("Esta aplicación requiere una conexión de datos para funcionar, activela y vuelva a ejecutar la aplicación");
+            navigator.app.exitApp();
+        }
 
-  // Show a custom confirmation dialog
-  //
-  function showConfirm() {
+        function backPress() {
 
-  navigator.notification.confirm(
+            showConfirm();
+        }
+        // process the confirmation dialog result
+
+        function onConfirm(buttonIndex) {
+            alert('You selected button ' + buttonIndex);
+            navigator.app.exitApp();
+        }
+
+        // Show a custom confirmation dialog
+        //
+        function showConfirm() {
+
+            navigator.notification.confirm(
   'Salir de la aplicación',  // message
   onConfirm,              // callback to invoke with index of button pressed
   'Estas seguro?',            // title
   'Si,No'          // buttonLabels
-  );
-  }
-</script>
+  )
+        }
+    </script>
 </head>
-	<body>
-   <img src="splash.png" width="100%"/>
-	</body>
+<body>
+<p align="center">
+    <img id="splash" src="splash.png"  />
+</p>
+</body>
 </html>
