@@ -25,6 +25,9 @@
       <access origin="*" />
       <preference name="permissions"                value="none"/>
       <icon src="icon.png" />
+      <icon src="57x57.png"            gap:platform="ios"        width="57" height="57" />
+      <icon src="72x72.png"            gap:platform="ios"        width="72" height="72" />
+
       <gap:splash src="splash.png" />
       <plugin name="Notification" value="org.apache.cordova.Notification"/>
 </widget>
