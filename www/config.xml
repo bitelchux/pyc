@@ -7,10 +7,13 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Pyc</name>
+    <name>Promociones y cosas gratis</name>
 
     <description>
-        Pyc
+      Versión de la web promocionesycolecciones.com, de momento están disponibles las siguientes funcionalidades
+      - Acceso al contenido de promocionesycolecciones.com
+      - Ver que regalos traen los periódicos hoy (o un día determinado)
+      - Ver los regalos de las revistas del mes actual
     </description>
 
     <author href="https://build.phonegap.com" email="bitelchux@yahoo.es">
