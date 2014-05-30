@@ -20,7 +20,7 @@
 	Julio Fuente
     </author>
 
-      <preference name="phonegap-version"           value="2.5.0" />
+      <preference name="phonegap-version"           value="3.3.0" />
       <!-- all: current version of PhoneGap -->
       <access origin="*" />
       <preference name="permissions"                value="none"/>
